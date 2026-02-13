@@ -1,4 +1,4 @@
-## CNN & Variational Autoencoder for Scientific Anomaly Detection
+# CNN & Variational Autoencoder for Scientific Anomaly Detection
 
 This project implements deep learning–based unsupervised anomaly detection using convolutional autoencoders and variational autoencoders. The framework progresses from a controlled benchmark dataset to a real high-energy physics dataset.
 
@@ -47,41 +47,58 @@ The framework is extended to a real high-energy physics benchmark from the LHC O
 This phase demonstrates adaptation of unsupervised anomaly detection to structured scientific data.
 
 ## PROJECT STRUCTURE
-src/
- ├── models/
- │    ├── cnn_autoencoder.py
- │    └── vae.py
- ├── datasets/
- │    ├── fashion_mnist.py
- │    └── scientific_dataset.py
- ├── train.py
- └── eval.py
-
-notebooks/
-results/
-requirements.txt
-README.md
-
+```autoencoder-anomaly-detection/
+├── src/
+│   ├── models/
+│   │   ├── cnn_autoencoder.py
+│   │   ├── vae.py
+│   │   └── eval.py
+│   ├── datasets/
+│   │   ├── fashion_mnist.py
+│   │   └── scientific_dataset.py
+│   ├── train.py
+│   └── utils.py
+├── data/
+│   └── FashionMNIST/
+├── scientific_datasets/
+│   ├── background.h5
+│   ├── background.npy
+│   ├── signal.h5
+│   └── signal.npy
+├── notebooks/
+│   ├── CNN_autoencoder.ipynb
+│   └── fashion_mnist_cnn.ipynb
+├── results/
+│   ├── fashion_ae.pth
+│   ├── model.pth
+│   └── scientific_vae.pth
+├── venv/
+├── requirements.txt
+├── README.md
+└── .gitignore
+```
 
 ## INSTALLATION
 
 Create a virtual environment and install dependencies:
 
 python -m venv venv
+
 venv\Scripts\activate   # Windows
+
 pip install -r requirements.txt
 
 # How to Run
-- Train Fashion Baseline
+- Train Fashion Baseline: 
 python src/train.py --dataset fashion --model ae
 
-- Evaluate Fashion Baseline
+- Evaluate Fashion Baseline: 
 python src/eval.py --dataset fashion --model ae
 
-- Train Scientific VAE
+- Train Scientific VAE: 
 python src/train.py --dataset scientific --model vae --epochs 20 --batch_size 300
 
-- Evaluate Scientific VAE
+- Evaluate Scientific VAE: 
 python src/eval.py --dataset scientific --model vae --batch_size 300
 
 # Datasets
