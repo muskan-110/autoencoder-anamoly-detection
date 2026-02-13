@@ -36,9 +36,7 @@ env/
 *~
 .DS_Store
 
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
+
 
 # PyTorch
 *.pth
@@ -58,12 +56,7 @@ scientific_datasets/*.h5
 scientific_datasets/*.npy
 data/FashionMNIST/
 
-# Results and outputs
-results/
-*.png
-*.jpg
-*.jpeg
-*.pdf
+
 
 # Logs
 *.log
