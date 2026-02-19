@@ -65,6 +65,11 @@ The modular design allows:
 - Clear separation of data handling, training, and evaluation
 - Extension toward alternative architectures
 
+# Results :
+Fashion-MNIST Baseline- ROC-AUC: 0.951
+
+LHCO 2020 VAE- ROC-AUC: 0.5001
+
 # Research Motivation
 
 Unsupervised anomaly detection plays a critical role in high-energy physics, where new physics signals are rare and unlabeled. Reconstruction-based methods provide a baseline approach by modeling background distributions and identifying deviations.
