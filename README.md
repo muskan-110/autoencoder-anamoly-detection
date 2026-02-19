@@ -1,116 +1,82 @@
 # CNN & Variational Autoencoder for Scientific Anomaly Detection
 
-This project implements deep learning–based unsupervised anomaly detection using convolutional autoencoders and variational autoencoders. The framework progresses from a controlled benchmark dataset to a real high-energy physics dataset.
+This repository implements reconstruction-based unsupervised anomaly detection using deep autoencoders, progressing from a controlled image benchmark to the LHC Olympics (LHCO) 2020 jet anomaly detection dataset.
+The goal is to study anomaly detection in high-energy physics settings, where potential new physics signals are rare and unlabeled.
 
-# Phase 1: Fashion-MNIST Baseline
+# Phase 1: Controlled Benchmark — Fashion-MNIST
 
-A convolutional autoencoder is trained on a single normal class to validate the anomaly detection pipeline.
+A convolutional autoencoder (CNN-AE) is trained on a single “normal” class to validate the anomaly detection pipeline in a controlled environment.
 
+Setup
 - Normal data: one selected Fashion-MNIST class
-
 - Anomaly score: reconstruction error (MSE)
-
 - Evaluation metric: ROC-AUC
 
-- Purpose: validate methodology in a controlled environment
+Purpose
+- Establish and validate the reconstruction-based anomaly detection methodology before transitioning to scientific data.
 
-This phase establishes the reconstruction-based anomaly detection baseline.
+# Phase 2: LHC Olympics 2020 — Jet Anomaly Detection
 
-# Phase 2: LHCO 2020 Scientific Dataset (Jet Anomaly Detection)
+The framework is extended to the LHC Olympics (LHCO) 2020 dataset, a benchmark for unsupervised new physics searches.
 
-The framework is extended to a real high-energy physics benchmark from the LHC Olympics 2020 dataset.
+Model
+- Variational Autoencoder (VAE)
 
-- Model: Variational Autoencoder (VAE)
+Training Data
+- Background (QCD) jets only
 
-- Training data: background (QCD) jets only
+Representation
+- Jet-to-image conversion in η–φ space
 
-- Representation: jet-to-image conversion in η–φ space
+Physics-Inspired Preprocessing
+- Centering on leading particle
+- Principal axis alignment (rotation)
+- Quadrant flipping for symmetry normalization
 
-- Preprocessing:
+Anomaly Score
+- Reconstruction loss
+- KL divergence term
 
-    Centering on leading particle
+Evaluation
+- ROC-AUC between background and signal events
 
-    Principal axis alignment (rotation)
+This phase demonstrates the adaptation of reconstruction-based anomaly detection to structured high-energy physics data.
 
-    Quadrant flipping for symmetry normalization
+# Experimental Design
 
-- Anomaly score:
-
-    Reconstruction loss
-
-    KL divergence
-
-- Evaluation:
-
-    ROC-AUC between background and signal events
-
-This phase demonstrates adaptation of unsupervised anomaly detection to structured scientific data.
-
-## PROJECT STRUCTURE
-```autoencoder-anomaly-detection/
-├── src/
-│   ├── models/
-│   │   ├── cnn_autoencoder.py
-│   │   ├── vae.py
-│   │   └── eval.py
-│   ├── datasets/
-│   │   ├── fashion_mnist.py
-│   │   └── scientific_dataset.py
-│   ├── train.py
-│   └── utils.py
-├── data/
-│   └── FashionMNIST/
-├── scientific_datasets/
-│   ├── background.h5
-│   ├── background.npy
-│   ├── signal.h5
-│   └── signal.npy
-├── notebooks/
-│   ├── CNN_autoencoder.ipynb
-│   └── fashion_mnist_cnn.ipynb
-├── results/
-│   ├── fashion_ae.pth
-│   ├── model.pth
-│   └── scientific_vae.pth
-├── venv/
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
-
-## INSTALLATION
-
-Create a virtual environment and install dependencies:
-
-python -m venv venv
-
-venv\Scripts\activate   # Windows
-
-pip install -r requirements.txt
-
-# How to Run
-- Train Fashion Baseline: 
-python src/train.py --dataset fashion --model ae
-
-- Evaluate Fashion Baseline: 
-python src/eval.py --dataset fashion --model ae
-
-- Train Scientific VAE: 
-python src/train.py --dataset scientific --model vae --epochs 20 --batch_size 300
-
-- Evaluate Scientific VAE: 
-python src/eval.py --dataset scientific --model vae --batch_size 300
-
-# Datasets
-
-Fashion-MNIST is automatically downloaded.
-
-LHCO 2020 dataset must be placed inside:
+The project is structured to ensure modularity and reproducibility:
+```src/
+  models/
+    cnn_autoencoder.py
+    vae.py
+    eval.py
+  datasets/
+    fashion_mnist.py
+    scientific_dataset.py
+  train.py
+  utils.py
 
 scientific_datasets/
   background.h5
   signal.h5
+```
+The modular design allows:
+- Easy benchmarking across models
+- Clear separation of data handling, training, and evaluation
+- Extension toward alternative architectures
 
 # Research Motivation
 
-Unsupervised anomaly detection is critical in high-energy physics where new physics signals are rare and unlabeled. This project explores reconstruction-based approaches and evaluates their behavior when transitioning from simple image data to structured jet representations.
+Unsupervised anomaly detection plays a critical role in high-energy physics, where new physics signals are rare and unlabeled. Reconstruction-based methods provide a baseline approach by modeling background distributions and identifying deviations.
+
+This project investigates how such methods behave when transitioning from simple image data to structured jet representations derived from collider events.
+
+# Planned Extension: Graph-Based Anomaly Detection
+
+To better capture relational structure in collision events, this framework will be extended toward:
+
+- Graph representations of jets (particles as nodes, relational edges)
+- Graph Neural Networks (GNNs) for graph-level anomaly detection
+- Contrastive learning objectives for improved representation learning
+
+This extension aims to move beyond image-based representations and leverage the underlying particle-level structure of collider events.
